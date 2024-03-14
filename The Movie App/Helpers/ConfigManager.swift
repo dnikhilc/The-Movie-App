@@ -12,9 +12,10 @@ class ConfigurationManager {
 
     var baseURL: String = ""
     var imageBaseURL: String = ""
-    var authToken: String {
-            return "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjliMDk2NTI2OGVkNTY2MTgzZmQ1Y2IzMDljMDlmNCIsInN1YiI6IjY1ZjBjMTEyZDIzNmU2MDE4NjRmMmY0YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6I_pX6dBrOcEgPyol8U6QEla3EnqRzlXBK5ovP82jdg"
-        }
+    private(set) var authToken: String = ""
+//    var authToken: String {
+//            return "Bearer API_TOKEN"
+//        }
 
     private init() {
         loadURLsFromPlist()
@@ -25,6 +26,9 @@ class ConfigurationManager {
            let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             baseURL = dict["baseURL"] as? String ?? ""
             imageBaseURL = dict["imageBaseURL"] as? String ?? ""
+            if let token = dict["API_KEY"] {
+                authToken = "Bearer \(token)"
+            }
         }
     }
 }
